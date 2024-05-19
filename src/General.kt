@@ -12,6 +12,8 @@ object General {
         val ldtDate = LocalDateTime.parse(date.replace(" ", "T"), DateTimeFormatter.ISO_OFFSET_DATE_TIME)
         println("часы: ${ldtDate.hour}, ${ldtDate.minute}, ${ldtDate.second}, ${ldtDate.month}, ${ldtDate.dayOfMonth}, ${ldtDate.year}, ")
         val nowDate = LocalDateTime.now()
+        val nowDateStart = LocalDateTime.MIN
+        println(nowDateStart)
         val duration = Duration.between(ldtDate, nowDate)
         val days = duration.toDays()
         val hours = duration.toHours() % 24

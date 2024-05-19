@@ -5,9 +5,11 @@ import java.sql.Timestamp
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
+import java.util.*
 
 fun main() {
-
+/*
     var listProduct = ArrayList<ProductModel>()
     listProduct.add(ProductModel(true, "Тестовый заголовок 1", "Какое-то описание", 500, "Tennis"))
     listProduct.add(ProductModel(false, "Тестовый 2",  "Какое-то описание",600, "Tennis"))
@@ -26,8 +28,28 @@ fun main() {
         println("${el.name}: ${listProduct.count { it == el }}")
     }
 
-    println(listProduct)
-
+    println(listProduct)*/
+    val nowDateStart = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0)
+    println()
+    val dateNow = "2024-05-17 21:00:47+00"
+    val ldt = LocalDateTime.parse(dateNow.replace(" ", "T"), DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+    //Разница между началом текущего дня и полученной датой
+    //Из 2 даты вычитаеся 1
+    var duration = Duration.between(ldt, nowDateStart)
+    //Если дата больше начала текущего дня, т.е.
+    //начало тек. дня - дата < 0, то это сегодня
+    println(duration.toDays())
+    if(duration.isNegative){
+        //Разница между датой и текущей датой
+        duration = Duration.between(ldt, LocalDateTime.now())
+        println("${duration.toHours()} ч. ${duration.toMinutes() % 60} мин. назад")
+    } else {
+        if (duration.toDays() < 1) {
+            println("${ldt.hour}:${ldt.minute}")
+        } else {
+            println("${ldt.dayOfMonth} ${ldt.month.getDisplayName(TextStyle.FULL, Locale("ru"))} ${ldt.year}")
+        }
+    }
 
 
 
@@ -47,7 +69,7 @@ fun main() {
     println("2." + pass.toSHA512())*/
 
     //Хэшируем пароль
-    println(getSha512("pass123"))
+    //println(getSha512("pass123"))
 }
 
 fun getSha512(pass: String): String {
